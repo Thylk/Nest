@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  server:
+    container_name: server
+    image: node:latest
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: bash -c "npm install && npm run start:dev"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+  database:
+    container_name: database
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: liberty
+    ports:
+      - "5432:5432"
